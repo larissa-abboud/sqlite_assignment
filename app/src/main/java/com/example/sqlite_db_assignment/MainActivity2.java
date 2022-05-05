@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,11 @@ public class MainActivity2 extends AppCompatActivity {
         Intent x = getIntent();
         String name = x.getStringExtra("coursee_name");
         t.setText(name);
+        WebView view = (WebView) findViewById(R.id.webview);
+        view.getSettings().setJavaScriptEnabled(true);
+        view.setWebViewClient( new WebViewClient());
+        view.loadUrl("https://www.w3schools.com/sql/sql_drop_table.asp");
+        //view.loadData("<html> <body> <h1> Hello World! </h1> </body> </html>", "text/html; charset=UTF-8", null);
 
         //Toast.makeText(getApplicationContext(), name , Toast.LENGTH_LONG).show();
     }
