@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 String flag ;
 boolean name ;
 String[] options ;
-ArrayList the_list;
+ArrayList the_list , the_list2;
 ArrayAdapter adapter;
 ListView my_list;
     int x=0,j=0;
@@ -33,57 +33,57 @@ ListView my_list;
         try{
 
             SQLiteDatabase sql = this.openOrCreateDatabase("coursedb", MODE_PRIVATE, null);
-            sql.execSQL("CREATE Table IF NOT EXISTS final (course_name VARCHAR ,final_exam_timeDate VARCHAR)");
+            sql.execSQL("CREATE Table IF NOT EXISTS finalss (course_name VARCHAR ,final_exam_timeDate VARCHAR ,web_url VARCHAR)");
             //sql.execSQL("DROP  coursedb ");//create a table
-           // sql.execSQL("INSERT INTO final(course_name ,final_exam_timeDate ) VALUES ('mobil' , 'may 13' )  ");
-            //sql.execSQL("INSERT INTO final(course_name,final_exam_timeDate ) VALUES ('cp3' , 'may 16' )  ");
-           // sql.execSQL("INSERT INTO final(course_name ,final_exam_timeDate ) VALUES ('co' , 'may 12' )  ");
+           // sql.execSQL("INSERT INTO finalss(course_name ,final_exam_timeDate,web_url ) VALUES ('mobil' , 'may 13','https://www.w3schools.com/sql/sql_drop_table.asp')  ");
+           //sql.execSQL("INSERT INTO finalss(course_name,final_exam_timeDate,web_url ) VALUES ('cp3' , 'may 16','https://www.tutorialspoint.com/data_structures_algorithms/dsa_quick_guide.htm' )  ");
+           //sql.execSQL("INSERT INTO finalss(course_name ,final_exam_timeDate,web_url ) VALUES ('co' , 'may 12','https://www.geeksforgeeks.org/last-minute-notes-computer-organization/' )  ");
+            //sql.execSQL("DELETE FROM finalss where course_name = 'mobil'");
+           //sql.execSQL("DELETE FROM finalss where course_name = 'cp3'");
+            //sql.execSQL("DELETE FROM finalss where course_name = 'co'");
 
-            Cursor c = sql.rawQuery("Select * from final", null);
+
+            Cursor c = sql.rawQuery("Select * from finalss", null);
             int fnameIndex = c.getColumnIndex("course_name");
             int lnameIndex = c.getColumnIndex("final_exam_timeDate");
+            int wnameIndex = c.getColumnIndex("web_url");
 
             c.moveToFirst();
             //insert web url in database as well.
 
 
             String[] list = new String[c.getCount()];
+             options = new String[c.getCount()];
 
             while(c!= null & c.getCount()>x){
 
-                String name = c.getString(fnameIndex) + " " + c.getString(lnameIndex);
-                list[x] = name ;
+                String name = c.getString(fnameIndex) + "        " + c.getString(lnameIndex);
+                list[x] =  c.getString(wnameIndex);
+                options[x] = name;
                // the_list.add(x ,name);
-                Log.i("name",list[x]);
+                Log.i("url",list[x]);
                 Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
                 c.moveToNext(); x++;
             }the_list = new ArrayList<String>(Arrays.asList(list));
+            the_list2 = new ArrayList<String>(Arrays.asList(options));
             for(j=0  ; j< c.getCount();j++){
-                Log.i("list",""+the_list.get(j)+""+j);
+               // Log.i("list",""+the_list.get(j)+""+j);
 
             }
 /**
  * create list view that stores*/
 
-          /*  while(c!= null & c.getCount()>x){
-                x++;
-                String name = c.getString(fnameIndex) + " " + c.getString(lnameIndex);
 
 
-                //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
-                c.moveToNext();*/
-           // options = new String[]{"mobile : may 13 ","co : may 12","cp3 : may16"};// should be selected from the database
 
-           // the_list = new ArrayList<String>(Arrays.asList(options));
-
-
-            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,the_list);
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,the_list2);
             my_list.setAdapter(adapter);
             my_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(getApplicationContext(), ""+the_list.get(i), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), ""+the_list.get(i), Toast.LENGTH_SHORT).show();
                     Intent obj = new Intent(getApplicationContext(), MainActivity2.class);
+                    //Log.i("list",""+the_list2.get(i));
                     obj.putExtra("coursee_name", ""+the_list.get(i));
 
                     startActivity(obj);
@@ -93,14 +93,8 @@ ListView my_list;
 
 
 
-            /**
-             * if it does loop
-             * so we don't insert
-             * else we do
-             *
-             * or cond: it is not in,then we add*/
 
-int i =0;
+
 
 
 
