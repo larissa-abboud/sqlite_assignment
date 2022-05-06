@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-String flag ;
-boolean name ;
+
 String[] options ;
 ArrayList the_list , the_list2;
 ArrayAdapter adapter;
@@ -60,14 +59,13 @@ ListView my_list;
                 String name = c.getString(fnameIndex) + "        " + c.getString(lnameIndex);
                 list[x] =  c.getString(wnameIndex);
                 options[x] = name;
-               // the_list.add(x ,name);
                 Log.i("url",list[x]);
                 Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
                 c.moveToNext(); x++;
             }the_list = new ArrayList<String>(Arrays.asList(list));
             the_list2 = new ArrayList<String>(Arrays.asList(options));
             for(j=0  ; j< c.getCount();j++){
-               // Log.i("list",""+the_list.get(j)+""+j);
+
 
             }
 /**
@@ -81,11 +79,8 @@ ListView my_list;
             my_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    //Toast.makeText(getApplicationContext(), ""+the_list.get(i), Toast.LENGTH_SHORT).show();
                     Intent obj = new Intent(getApplicationContext(), MainActivity2.class);
-                    //Log.i("list",""+the_list2.get(i));
                     obj.putExtra("coursee_name", ""+the_list.get(i));
-
                     startActivity(obj);
 
                 }
