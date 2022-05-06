@@ -59,23 +59,15 @@ ListView my_list;
                 String name = c.getString(fnameIndex) + "        " + c.getString(lnameIndex);
                 list[x] =  c.getString(wnameIndex);
                 options[x] = name;
-                Log.i("url",list[x]);
+               // Log.i("url",list[x]);
                 Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
                 c.moveToNext(); x++;
             }the_list = new ArrayList<String>(Arrays.asList(list));
             the_list2 = new ArrayList<String>(Arrays.asList(options));
-            for(j=0  ; j< c.getCount();j++){
-
-
-            }
-/**
- * create list view that stores*/
-
-
-
 
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,the_list2);
             my_list.setAdapter(adapter);
+
             my_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
